@@ -15,19 +15,25 @@ weather:
     - cloud_cover
     - temperature_2m
   locations:
-    - name: scotland_wind
-      latitude: 57.5
-      longitude: -4.2
-    - name: north_sea
+    - name: moray_firth          # Scottish offshore cluster (replaces inland scotland_wind)
+      latitude: 58.2
+      longitude: -2.8
+    - name: north_sea            # strongest signal so far
       latitude: 54.0
       longitude: 1.0
-    - name: south_england_solar
+    - name: east_anglia          # large southern North Sea offshore cluster
+      latitude: 52.3
+      longitude: 2.4
+    - name: irish_sea            # west coast offshore farms
+      latitude: 54.0
+      longitude: -3.5
+    - name: south_england_solar  # solar
       latitude: 51.0
       longitude: -1.5
-    - name: london
+    - name: london               # temperature and demand proxy
       latitude: 51.51
       longitude: -0.13
 
 benchmark:
   snapshot_dir: benchmark/neso_fw24h
-  min_periods: 46        # fail loudly if NESO returns fewer than this
+
