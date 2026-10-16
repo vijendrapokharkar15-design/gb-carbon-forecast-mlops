@@ -30,3 +30,10 @@ def save_monthly_partitions(
         written.append(path)
 
     return written
+
+def load_partitions(folder: Path) -> pd.DataFrame:
+    """Read every monthly Parquet file in a folder into one DataFrame."""
+    files = sorted(Path(folder).glob("*.parquet"))
+    if not files:
+        raise FileNotFoundError(f"No Parquet files found in {folder}")
+    return pd.concat((pd.read_parquet(f) for f in files), ignore_index=True)

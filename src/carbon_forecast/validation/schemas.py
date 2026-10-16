@@ -90,6 +90,72 @@ def build_raw_weather_schema(variables: list[str]) -> pa.DataFrameSchema:
 
     return pa.DataFrameSchema(columns=columns, unique=["time", "location"], strict=True)
 
+# ---------- processed NESO ----------
+
+PROCESSED_NESO_SCHEMA = pa.DataFrameSchema(
+    columns={
+        "period_start": pa.Column(
+            nullable=False,
+            unique=True,
+            checks=[IS_UTC, pa.Check(_on_half_hour, error="must be on a half-hour boundary")],
+        ),
+        "period_end": pa.Column(nullable=False, checks=[IS_UTC]),
+        "actual": pa.Column(
+            float,
+            nullable=True,
+            checks=[pa.Check.greater_than(0), pa.Check.less_than_or_equal_to(1000)],
+        ),
+        "neso_forecast_latest": pa.Column(float, nullable=True, checks=pa.Check.in_range(0, 1000)),
+        "is_valid_target": pa.Column(bool, nullable=False),
+        "invalid_reason": pa.Column(
+            nullable=True, checks=pa.Check.isin(["outage", "null_actual", "zero_actual"])
+        ),
+    },
+    checks=[
+        pa.Check(
+            lambda df: df["period_start"].diff().dropna().eq(pd.Timedelta("30min")).all(),
+            error="period_start must form a complete half-hourly grid",
+        ),
+        pa.Check(
+            lambda df: df["is_valid_target"] == df["invalid_reason"].isna(),
+            error="is_valid_target must be True exactly when invalid_reason is empty",
+        ),
+        pa.Check(
+            lambda df: ~df["is_valid_target"] | df["actual"].notna(),
+            error="valid targets must have an actual value",
+        ),
+    ],
+    strict=True,
+)
+
+
+# ---------- processed weather ----------
+
+def build_processed_weather_schema(variables: list[str], locations: list[str]) -> pa.DataFrameSchema:
+    """Wide hourly weather: no gaps, no nulls, every variable and location present."""
+    columns = {
+        "time": pa.Column(
+            nullable=False,
+            unique=True,
+            checks=[IS_UTC, pa.Check(_on_hour, error="must be on the hour")],
+        )
+    }
+    for var in variables:
+        low, high = WEATHER_RANGES[var]
+        for loc in locations:
+            columns[f"{var}__{loc}"] = pa.Column(float, nullable=False, checks=pa.Check.in_range(low, high))
+
+    return pa.DataFrameSchema(
+        columns=columns,
+        checks=[
+            pa.Check(
+                lambda df: df["time"].diff().dropna().eq(pd.Timedelta("1h")).all(),
+                error="time must form a complete hourly grid",
+            )
+        ],
+        strict=True,
+    )
+
 
 # ---------- runner ----------
 

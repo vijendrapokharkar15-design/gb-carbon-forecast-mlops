@@ -37,3 +37,6 @@ weather:
 benchmark:
   snapshot_dir: benchmark/neso_fw24h
 
+processed:
+  neso_path: data/processed/neso_clean.parquet
+  weather_path: data/processed/weather_hourly.parquet
