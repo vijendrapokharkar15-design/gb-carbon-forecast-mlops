@@ -6,3 +6,4 @@ jupyter
 ipykernel
 python-dotenv
 pyyaml
+pytest

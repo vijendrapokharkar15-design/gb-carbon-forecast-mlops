@@ -1,0 +1,29 @@
+start_date: "2023-01-01"
+
+neso:
+  chunk_days: 30
+  pause_seconds: 1.0
+  out_dir: data/raw/neso_intensity
+
+weather:
+  out_dir: data/raw/weather
+  pause_seconds: 1.0
+  archive_lag_days: 6          # Open-Meteo archive runs a few days behind
+  variables:
+    - wind_speed_100m
+    - shortwave_radiation
+    - cloud_cover
+    - temperature_2m
+  locations:
+    - name: scotland_wind
+      latitude: 57.5
+      longitude: -4.2
+    - name: north_sea
+      latitude: 54.0
+      longitude: 1.0
+    - name: south_england_solar
+      latitude: 51.0
+      longitude: -1.5
+    - name: london
+      latitude: 51.51
+      longitude: -0.13
