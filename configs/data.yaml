@@ -27,3 +27,7 @@ weather:
     - name: london
       latitude: 51.51
       longitude: -0.13
+
+benchmark:
+  snapshot_dir: benchmark/neso_fw24h
+  min_periods: 46        # fail loudly if NESO returns fewer than this

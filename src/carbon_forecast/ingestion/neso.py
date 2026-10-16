@@ -81,3 +81,27 @@ def fetch_national_intensity(
         .reset_index(drop=True)
     )
     return df
+
+def floor_to_half_hour(dt: datetime) -> datetime:
+    """Round a datetime down to the start of its half-hour period."""
+    return dt.replace(minute=0 if dt.minute < 30 else 30, second=0, microsecond=0)
+
+
+def fetch_forward_24h(from_dt: datetime) -> list[dict]:
+    """Return NESO's forecast for the 24 hours after from_dt, as raw API rows."""
+    url = f"{BASE_URL}/intensity/{_iso(from_dt)}/fw24h"
+    with requests.Session() as session:
+        payload = get_json_with_retry(session, url)
+    return payload.get("data", [])
+
+
+def parse_forecast_rows(rows: list[dict]) -> pd.DataFrame:
+    """Turn raw forecast rows into a clean table: period_start, period_end, forecast."""
+    df = pd.json_normalize(rows).rename(
+        columns={"from": "period_start", "to": "period_end", "intensity.forecast": "forecast"}
+    )
+    df = df.reindex(columns=["period_start", "period_end", "forecast"])
+    df["period_start"] = pd.to_datetime(df["period_start"], utc=True)
+    df["period_end"] = pd.to_datetime(df["period_end"], utc=True)
+    df["forecast"] = pd.to_numeric(df["forecast"], errors="coerce").astype("float64")
+    return df.sort_values("period_start").reset_index(drop=True)
