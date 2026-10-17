@@ -1,0 +1,4 @@
+model,mae,regret_mean,good_window_rate,n_issue_days,n_regret_days,n_valid_targets,period,run_at
+neso_latest_reference,9.91,1.65,0.964,365,364,17519,test,2026-10-17 12:48
+naive_24h,40.26,21.39,0.525,365,364,17519,test,2026-10-17 12:48
+profile_4w,42.05,12.31,0.687,365,364,17519,test,2026-10-17 12:48

@@ -79,9 +79,10 @@ not as a target.
 Fixed before any model is trained. Baseline scores are computed first in Phase 2 on the
 same test period, then the model is judged against them.
 
-**Model quality** (time-based test set, most recent months)
-- MAE at least **25% lower** than the naive baseline
-- Carbon regret at least **25% lower** than the naive baseline
+**Model quality** (walk-forward backtest, test year Oct 2025 to Sep 2026, monthly refits)
+- Baseline scores on the test year (Oct 2025 to Sep 2026): naive MAE 40.3 / regret 21.4; seasonal profile MAE 42.1 / regret 12.3. Each metric is judged against the best baseline on that metric.
+- MAE at most **30.2** gCO2/kWh (25% below naive, the best baseline on MAE)
+- Carbon regret at most **9.2** gCO2/kWh (25% below the seasonal profile, the best baseline on regret)
 - Once 30+ days of NESO snapshots exist: model MAE and carbon regret reported side by side
   with NESO day-ahead. Matching NESO is a strong result; beating it on carbon regret is the stretch goal.
 
