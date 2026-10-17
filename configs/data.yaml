@@ -53,3 +53,7 @@ evaluation:
   test_end: "2026-10-01"         # exclusive
   tuning_start: "2024-10-01"     # tuning year: 2024-10-01 to test_start
   predictions_dir: data/predictions  
+
+features:
+  train_start: "2023-02-01"     # 4 weeks after data start, so the profile and 7-day lag exist
+  path: data/processed/features.parquet
