@@ -40,3 +40,15 @@ benchmark:
 processed:
   neso_path: data/processed/neso_clean.parquet
   weather_path: data/processed/weather_hourly.parquet
+
+
+evaluation:
+  issue_hour_utc: 12             # forecast issued daily at 12:00 UTC
+  horizon_steps: 48              # next 48 half-hours (24h)
+  publication_lag_minutes: 30    # latest actual known at issue = period ending 30 min before
+  window_steps: 8                # flexible load length: 8 half-hours = 4h
+  good_window_threshold: 10      # gCO2/kWh regret counted as a "good" day
+  test_start: "2025-10-01"       # walk-forward test year (inclusive)
+  test_end: "2026-10-01"         # exclusive
+  tuning_start: "2024-10-01"     # tuning year: 2024-10-01 to test_start
+  predictions_dir: data/predictions  
