@@ -25,3 +25,4 @@ data/predictions/
 # MLflow local runs
 mlruns/
 mlartifacts/
+mlflow.db

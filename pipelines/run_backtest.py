@@ -7,7 +7,8 @@ Usage:
 """
 import argparse
 import logging
-from datetime import datetime, timezone
+
+from carbon_forecast.evaluation.results import record_result
 
 import pandas as pd
 
@@ -23,7 +24,6 @@ MODELS = {
     "profile": ProfileForecaster,
 }
 
-RESULTS_PATH = "docs/results.csv"
 
 
 def period_bounds(ev: dict, period: str) -> tuple[str, str]:
@@ -40,17 +40,6 @@ def neso_reference(preds: pd.DataFrame) -> pd.DataFrame:
     ref["is_valid_target"] = ref["is_valid_target"] & ref["y_pred"].notna()
     return ref
 
-
-def record_result(summary: dict, period: str) -> None:
-    """Upsert one row per (model, period) into the tracked results table."""
-    path = resolve_path(RESULTS_PATH)
-    row = pd.DataFrame([{**summary, "period": period, "run_at": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M")}])
-    if path.exists():
-        existing = pd.read_csv(path)
-        existing = existing[~((existing["model"] == summary["model"]) & (existing["period"] == period))]
-        row = pd.concat([existing, row], ignore_index=True)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    row.sort_values(["period", "mae"]).to_csv(path, index=False)
 
 
 def run_one(key: str, period: str, cfg: dict, neso: pd.DataFrame, weather: pd.DataFrame) -> pd.DataFrame:

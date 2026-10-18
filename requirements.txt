@@ -10,3 +10,5 @@ pytest
 scipy
 pandera
 holidays
+lightgbm
+mlflow
