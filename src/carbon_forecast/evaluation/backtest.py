@@ -48,14 +48,18 @@ def run_backtest(
     horizon_steps: int = 48,
     publication_lag_minutes: int = 30,
     refit_monthly: bool = True,
+    serve_weather: pd.DataFrame | None = None,  # NEW
 ) -> pd.DataFrame:
     """Run a daily walk-forward backtest and return one row per (issue time, target time).
 
     neso: processed NESO table (clean_neso output)
-    weather: processed wide hourly weather (clean_weather output)
+    weather: processed observed weather, used for TRAINING
+    serve_weather: optional weather used for PREDICTING (e.g. day-ahead forecasts).
+                   If None, observed weather is used for both (optimistic).
     """
     neso = neso.sort_values("period_start").reset_index(drop=True)
     weather = weather.sort_values("time").reset_index(drop=True)
+    serving = weather if serve_weather is None else serve_weather.sort_values("time").reset_index(drop=True)  # NEW
     truth = neso.set_index("period_start")[["actual", "is_valid_target", "neso_forecast_latest"]]
     lag = pd.Timedelta(minutes=publication_lag_minutes)
 
@@ -77,8 +81,8 @@ def run_backtest(
 
         target_times = pd.date_range(issue_time, periods=horizon_steps, freq="30min").as_unit(truth.index.unit)
 
-        # Weather up to the end of the horizon (observed weather as a stand-in for weather forecasts)
-        visible_weather = weather.iloc[: weather["time"].searchsorted(target_times[-1], side="right")]
+        # Weather for the horizon: observed (optimistic) or day-ahead forecasts (realistic)
+        visible_weather = serving.iloc[: serving["time"].searchsorted(target_times[-1], side="right")]  # NEW: serving
 
         y_pred = np.asarray(
             forecaster.predict(history, visible_weather, issue_time, target_times), dtype="float64"

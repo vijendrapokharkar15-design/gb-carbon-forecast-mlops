@@ -4,6 +4,7 @@ Usage:
     python pipelines/run_experiment.py --objective l2
     python pipelines/run_experiment.py --objective l1 --train-from 2024-01-01
     python pipelines/run_experiment.py --objective l1 --period test
+    python pipelines/run_experiment.py --objective l1 --period test --serve-weather forecast
 """
 import argparse
 import logging
@@ -27,6 +28,8 @@ def main() -> None:
     parser.add_argument("--objective", choices=["l2", "l1"], default="l2")
     parser.add_argument("--train-from", default=None, help="e.g. 2024-01-01; default uses all history")
     parser.add_argument("--period", choices=["tuning", "test"], default="tuning")
+    parser.add_argument("--serve-weather", choices=["observed", "forecast"], default="observed",
+                        help="Weather used when predicting: observed (optimistic) or day-ahead forecasts (realistic)")
     args = parser.parse_args()
 
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
@@ -39,7 +42,12 @@ def main() -> None:
     table = pd.read_parquet(resolve_path(cfg["features"]["path"]))
 
     start, end = (ev["tuning_start"], ev["test_start"]) if args.period == "tuning" else (ev["test_start"], ev["test_end"])
+
     forecaster = LightGBMForecaster(table, objective=args.objective, train_from=args.train_from)
+    serve_weather = None
+    if args.serve_weather == "forecast":
+        serve_weather = pd.read_parquet(resolve_path(cfg["processed"]["weather_forecast_path"]))
+        forecaster.name += "_fcwx"  # keep results and predictions separate from observed-weather runs
 
     mlflow.set_tracking_uri(f"sqlite:///{resolve_path('mlflow.db').as_posix()}")
     mlflow.set_experiment("carbon-forecast-backtest")
@@ -50,6 +58,7 @@ def main() -> None:
             "period": args.period,
             "loss": args.objective,
             "train_from": args.train_from or "all",
+            "serve_weather": args.serve_weather,
             **forecaster.params,
         })
 
@@ -58,6 +67,7 @@ def main() -> None:
             issue_hour_utc=ev["issue_hour_utc"],
             horizon_steps=ev["horizon_steps"],
             publication_lag_minutes=ev["publication_lag_minutes"],
+            serve_weather=serve_weather,
         )
 
         summary = summarise(preds, ev["window_steps"], ev["good_window_threshold"])

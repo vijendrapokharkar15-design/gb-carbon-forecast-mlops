@@ -131,3 +131,21 @@ def test_mae_ignores_invalid_targets():
     preds = _day([10.0, 20.0], [12.0, 999.0])
     preds.loc[1, "is_valid_target"] = False
     assert mae(preds) == pytest.approx(2.0)
+
+def test_serving_weather_used_for_predict_observed_for_fit():
+    """Training must see observed weather; predicting must see the serving (forecast) weather."""
+    class WeatherSpy(SpyForecaster):
+        def fit(self, history, weather):
+            self.fit_wind = set(weather["wind_speed_100m__north_sea"].unique())
+
+        def predict(self, history, weather, issue_time, target_times):
+            self.predict_wind = set(weather["wind_speed_100m__north_sea"].unique())
+            return np.zeros(len(target_times))
+
+    observed = make_processed_weather()                                 # wind = 8.0 everywhere
+    forecast = observed.assign(wind_speed_100m__north_sea=99.0)         # deliberately different
+    spy = WeatherSpy()
+    run_backtest(spy, make_processed_neso(), observed, "2026-01-05", "2026-01-06", serve_weather=forecast)
+
+    assert spy.fit_wind == {8.0}
+    assert spy.predict_wind == {99.0}
