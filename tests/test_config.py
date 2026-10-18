@@ -7,6 +7,7 @@ REQUIRED = {
     "weather": ["out_dir", "pause_seconds", "archive_lag_days", "variables", "locations"],
     "benchmark": ["snapshot_dir", "min_periods"],
     "features": ["train_start", "path"],
+    "promotion": ["objective", "eval_days", "mae_tolerance", "regret_tolerance", "registry_dir"],
     "processed": ["neso_path", "weather_path"],
     "evaluation": [
         "issue_hour_utc", "horizon_steps", "publication_lag_minutes", "window_steps",

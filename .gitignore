@@ -26,3 +26,4 @@ data/predictions/
 mlruns/
 mlartifacts/
 mlflow.db
+models/

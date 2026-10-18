@@ -59,3 +59,18 @@ class LightGBMForecaster:
     def feature_importance(self) -> pd.Series:
         gain = self.model.booster_.feature_importance(importance_type="gain")
         return pd.Series(gain / gain.sum(), index=FEATURE_COLUMNS, name="gain_share").sort_values(ascending=False).round(4)
+
+class BoosterForecaster:
+    """Serves an already-trained LightGBM model. fit() deliberately does nothing,
+    so the model is scored (or served) exactly as it was registered."""
+
+    def __init__(self, booster: lgb.Booster, name: str = "champion"):
+        self.booster = booster
+        self.name = name
+
+    def fit(self, history: pd.DataFrame, weather: pd.DataFrame) -> None:
+        pass
+
+    def predict(self, history, weather, issue_time, target_times):
+        feats = build_features(history, weather, issue_time, target_times)
+        return self.booster.predict(feats[FEATURE_COLUMNS]).astype("float64")

@@ -57,3 +57,11 @@ evaluation:
 features:
   train_start: "2023-02-01"     # 4 weeks after data start, so the profile and 7-day lag exist
   path: data/processed/features.parquet
+
+promotion:
+  objective: l1              # chosen on the tuning year (Step 2.5)
+  eval_days: 28              # recent window neither model has trained on
+  mae_tolerance: 0.5         # challenger may be at most this much worse than champion (gCO2/kWh)
+  regret_tolerance: 0.5
+  registry_dir: models
+  min_eval_days: 7           # skip retraining if less new data than this since the champion
