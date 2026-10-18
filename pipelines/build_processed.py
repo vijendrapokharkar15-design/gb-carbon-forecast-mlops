@@ -1,9 +1,16 @@
 """Build processed datasets: validate raw -> clean -> validate processed -> save.
 
+Produces three tables:
+- NESO intensity on a complete half-hourly grid with target-validity flags
+- Observed weather, wide format, hourly
+- Day-ahead weather forecasts, same layout as observed weather
+
 Usage:
     python pipelines/build_processed.py
 """
 import logging
+
+import pandas as pd
 
 from carbon_forecast.config import load_config, resolve_path
 from carbon_forecast.ingestion.storage import load_partitions
@@ -25,7 +32,7 @@ def main() -> None:
     variables = cfg["weather"]["variables"]
     locations = [loc["name"] for loc in cfg["weather"]["locations"]]
 
-    # NESO
+    # ---------- NESO ----------
     raw_neso = load_partitions(resolve_path(cfg["neso"]["out_dir"]))
     validate(raw_neso, RAW_NESO_SCHEMA, "raw NESO")
     neso = clean_neso(raw_neso)
@@ -41,7 +48,7 @@ def main() -> None:
         neso["invalid_reason"].value_counts().to_dict(),
     )
 
-    # Weather (only locations currently in the config)
+    # ---------- Observed weather (only locations currently in the config) ----------
     raw_weather = load_partitions(resolve_path(cfg["weather"]["out_dir"]))
     raw_weather = raw_weather[raw_weather["location"].isin(locations)]
     validate(raw_weather, build_raw_weather_schema(variables), "raw weather")
@@ -56,6 +63,25 @@ def main() -> None:
         weather.shape[1] - 1,
         weather["time"].min(),
         weather["time"].max(),
+    )
+
+    # ---------- Day-ahead weather forecasts: same schemas, same cleaning ----------
+    raw_fc = load_partitions(resolve_path(cfg["weather_forecast"]["out_dir"]))
+        # Archive is incomplete before the configured start date (documented in notebook 05)
+    fc_start = pd.Timestamp(cfg["weather_forecast"]["start_date"], tz="UTC")
+    raw_fc = raw_fc[raw_fc["location"].isin(locations) & (raw_fc["time"] >= fc_start)]
+    validate(raw_fc, build_raw_weather_schema(variables), "raw weather forecast")
+    weather_fc = clean_weather(raw_fc, variables, locations)
+    validate(weather_fc, build_processed_weather_schema(variables, locations), "processed weather forecast")
+
+    fc_path = resolve_path(cfg["processed"]["weather_forecast_path"])
+    weather_fc.to_parquet(fc_path, index=False)
+    logger.info(
+        "Processed weather forecast: %d hours x %d columns (%s to %s)",
+        len(weather_fc),
+        weather_fc.shape[1] - 1,
+        weather_fc["time"].min(),
+        weather_fc["time"].max(),
     )
 
 
