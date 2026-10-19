@@ -72,3 +72,9 @@ weather_forecast:
   lead: previous_day1            # value forecast 24h before each hour
   out_dir: data/raw/weather_forecast_d1
   pause_seconds: 1.0
+
+forecast_record:
+  api_url: https://carbon-forecast-api.delightfulfield-1ac7d123.uksouth.azurecontainerapps.io
+  out_dir: forecasts
+  timeout_seconds: 180        # generous: covers a cold start plus forecast computation
+  late_after_minutes: 60      # records fetched later than this after issue are flagged as late

@@ -3,7 +3,7 @@ import logging
 from typing import Callable
 
 import pandas as pd
-
+from carbon_forecast.serving.timing import latest_issue_time
 from carbon_forecast.config import load_config, resolve_path
 from carbon_forecast.evaluation.metrics import best_window_start
 from carbon_forecast.features.build import FEATURE_COLUMNS
@@ -22,11 +22,6 @@ from carbon_forecast.validation.schemas import (
 logger = logging.getLogger(__name__)
 
 
-def latest_issue_time(now: pd.Timestamp, issue_hour_utc: int = 12) -> pd.Timestamp:
-    """The most recent official issue time: today's if it has passed, otherwise yesterday's."""
-    now = pd.Timestamp(now).tz_convert("UTC")
-    today = now.normalize() + pd.Timedelta(hours=issue_hour_utc)
-    return today if now >= today else today - pd.Timedelta(days=1)
 
 
 def greenest_window(forecast: pd.DataFrame, hours: float, not_before: pd.Timestamp | None = None) -> dict | None:
