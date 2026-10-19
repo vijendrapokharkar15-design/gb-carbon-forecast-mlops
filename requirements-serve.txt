@@ -1,0 +1,9 @@
+pandas==3.0.6
+numpy==2.5.4
+requests==2.34.2
+PyYAML==6.0.3
+lightgbm==4.7.0
+pandera==0.34.1
+holidays==0.106
+fastapi==0.143.5
+uvicorn==0.54.0
