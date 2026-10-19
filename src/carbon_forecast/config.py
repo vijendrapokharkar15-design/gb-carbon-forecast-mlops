@@ -1,9 +1,14 @@
-"""Load YAML config and resolve paths relative to the project root."""
+"""Load YAML config and resolve paths relative to the project root.
+
+The root defaults to the repository folder; set CARBON_FORECAST_ROOT to override
+(used inside the Docker image).
+"""
+import os
 from pathlib import Path
 
 import yaml
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
+PROJECT_ROOT = Path(os.environ.get("CARBON_FORECAST_ROOT", Path(__file__).resolve().parents[2]))
 
 
 def load_config(name: str = "data.yaml") -> dict:

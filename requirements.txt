@@ -12,3 +12,6 @@ pandera
 holidays
 lightgbm
 mlflow
+fastapi
+uvicorn
+httpx
