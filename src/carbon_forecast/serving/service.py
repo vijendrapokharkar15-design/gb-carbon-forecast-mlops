@@ -3,12 +3,13 @@ import logging
 from typing import Callable
 
 import pandas as pd
-from carbon_forecast.serving.timing import latest_issue_time
+
 from carbon_forecast.config import load_config, resolve_path
 from carbon_forecast.evaluation.metrics import best_window_start
 from carbon_forecast.features.build import FEATURE_COLUMNS
 from carbon_forecast.processing.clean import clean_neso, clean_weather
 from carbon_forecast.serving.live_data import fetch_live_neso, fetch_live_weather
+from carbon_forecast.serving.timing import latest_issue_time
 from carbon_forecast.training.lgbm import BoosterForecaster
 from carbon_forecast.training.registry import ModelRegistry
 from carbon_forecast.validation.schemas import (

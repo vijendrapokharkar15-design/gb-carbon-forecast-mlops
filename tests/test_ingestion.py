@@ -16,7 +16,7 @@ def test_chunks_cover_range_without_gaps_or_overlaps():
 
     assert chunks[0][0] == start
     assert chunks[-1][1] == end
-    for (_, a_end), (b_start, _) in zip(chunks, chunks[1:]):
+    for (_, a_end), (b_start, _) in zip(chunks, chunks[1:], strict=False):
         assert a_end == b_start
     assert all(e - s <= timedelta(days=30) for s, e in chunks)
 

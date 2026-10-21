@@ -1,5 +1,5 @@
-import numpy as np
 import lightgbm as lgb
+import numpy as np
 import pytest
 
 from carbon_forecast.training.registry import FeatureMismatchError, ModelRegistry

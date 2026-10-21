@@ -1,4 +1,6 @@
-from carbon_forecast.ingestion.neso import parse_forecast_rows
+from datetime import datetime, timezone
+
+from carbon_forecast.ingestion.neso import parse_forecast_rows, snapshot_skip_reason
 
 
 def test_parse_forecast_rows_sorts_and_types():
@@ -20,10 +22,6 @@ def test_parse_forecast_rows_handles_empty_input():
     assert df.empty
     assert list(df.columns) == ["period_start", "period_end", "forecast"]
 
-
-from datetime import datetime, timezone
-
-from carbon_forecast.ingestion.neso import snapshot_skip_reason
 
 
 def _at(hour, minute=0):

@@ -8,13 +8,12 @@ Usage:
 import argparse
 import logging
 
-from carbon_forecast.evaluation.results import record_result
-
 import pandas as pd
 
 from carbon_forecast.config import load_config, resolve_path
 from carbon_forecast.evaluation.backtest import run_backtest
 from carbon_forecast.evaluation.metrics import mae_by, summarise
+from carbon_forecast.evaluation.results import record_result
 from carbon_forecast.training.baselines import NaiveForecaster, ProfileForecaster
 
 logger = logging.getLogger("run_backtest")
