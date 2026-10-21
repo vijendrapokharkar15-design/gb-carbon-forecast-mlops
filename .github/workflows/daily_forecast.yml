@@ -34,15 +34,23 @@ jobs:
       - name: Record today's forecast
         run: python pipelines/record_forecast.py
 
-      - name: Commit record
+      - name: Score finished forecasts and check alerts
+        run: python pipelines/monitor.py
+
+      - name: Commit record and scores
+        if: always()   # save scores even when an alert makes the monitor step fail
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add forecasts/
+          git add forecasts/ monitoring/
           if git diff --cached --quiet; then
-            echo "No new record to commit"
+            echo "Nothing new to commit"
           else
-            git commit -m "Forecast record $(date -u +'%Y-%m-%d')"
+            git commit -m "Forecast record and monitoring $(date -u +'%Y-%m-%d')"
             git pull --rebase
             git push
           fi
+
+      - name: Score finished forecasts and check alerts
+        if: always()   # still score past days and raise alerts even if today's recording failed
+        run: python pipelines/monitor.py

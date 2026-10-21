@@ -6,6 +6,7 @@ on:
     paths-ignore:            # the daily bot commits only touch these: no CI run needed
       - "benchmark/**"
       - "forecasts/**"
+      - "monitoring/**"
   pull_request:
     branches: [main]
   workflow_dispatch:

@@ -1,0 +1,3 @@
+issue_date,model_version,record_late,minutes_after_issue,n_valid,mae,bias,regret,good_window,neso_snapshot,common_periods,ours_mae_common,ours_regret_common,neso_mae_common,neso_regret_common,scored_at_utc
+2026-10-19,v20261018T123254Z,True,180.8,48,19.23,2.38,31.0,False,fw24h_20261019T1139Z.json,47.0,19.0,32.25,29.64,5.38,2026-10-21T12:44:28Z
+2026-10-20,v20261018T123254Z,False,11.3,48,20.46,8.67,6.12,True,,,,,,,2026-10-21T12:44:28Z

@@ -10,6 +10,7 @@ REQUIRED = {
     "promotion": ["objective", "eval_days", "mae_tolerance", "regret_tolerance", "registry_dir"],
     "weather_forecast": ["start_date", "lead", "out_dir", "pause_seconds"],
     "forecast_record": ["api_url", "out_dir", "timeout_seconds", "late_after_minutes"],
+    "monitoring": ["scores_path", "min_valid_targets", "rolling_days", "mae_alert", "bias_alert"],
     "processed": ["neso_path", "weather_path"],
     "evaluation": [
         "issue_hour_utc", "horizon_steps", "publication_lag_minutes", "window_steps",

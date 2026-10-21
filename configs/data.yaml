@@ -78,3 +78,10 @@ forecast_record:
   out_dir: forecasts
   timeout_seconds: 180        # generous: covers a cold start plus forecast computation
   late_after_minutes: 60      # records fetched later than this after issue are flagged as late
+
+monitoring:
+  scores_path: monitoring/daily_scores.csv
+  min_valid_targets: 46      # score a day once at least this many actuals are published
+  rolling_days: 7
+  mae_alert: 30.2            # the success threshold locked before training
+  bias_alert: 10.0           # |mean error| over the rolling window, gCO2/kWh
