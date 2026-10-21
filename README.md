@@ -10,6 +10,10 @@ Day-ahead forecasting of Great Britain's electricity carbon intensity, issued ev
 **Live dashboard:** https://gb-carbon-forecast.streamlit.app/
 **Live API:** https://carbon-forecast-api.delightfulfield-1ac7d123.uksouth.azurecontainerapps.io/docs
 
+[![Dashboard: today's forecast with the recommended greenest window](docs/images/dashboard-forecast.png)](https://gb-carbon-forecast.streamlit.app/)
+
+*Live dashboard (screenshot from 21 Oct 2026; click for the current forecast). The shaded band is the recommended greenest 4-hour window.*
+
 ## Results at a glance
 
 | Test year (Oct 2025 to Sep 2026), walk-forward | MAE (gCO₂/kWh) | Carbon regret | Good-window rate |
@@ -23,6 +27,10 @@ Day-ahead forecasting of Great Britain's electricity carbon intensity, issued ev
 - **52% lower MAE than the best baseline, 63% lower carbon regret**, clearing both success targets fixed *before* training (MAE ≤ 30.2, regret ≤ 9.2)
 - **Live performance matches the backtest:** the first on-time live day scored MAE 20.5 against a backtest promise of 19.5
 - **Carbon regret** = how much dirtier the recommended 4-hour window was than the truly greenest one. It is the metric users actually feel, and it can disagree with MAE (see findings)
+
+<!-- Enable once a few more on-time days are scored:
+[![Dashboard: live track record against the backtest promise](docs/images/dashboard-track-record.png)](https://gb-carbon-forecast.streamlit.app/)
+-->
 
 ## Architecture
 
