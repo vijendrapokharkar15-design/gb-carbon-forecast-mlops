@@ -7,8 +7,8 @@
 
 Day-ahead forecasting of Great Britain's electricity carbon intensity, issued every day at 12:00 UTC, telling flexible electricity users (EV fleets, batch computing, batteries) **when to run to emit the least CO₂**. Built and operated end to end: validated data pipelines, leakage-proof evaluation, champion/challenger retraining, a containerised API on Azure, and live monitoring against both reality and the national grid operator's own forecast.
 
-**Live dashboard:** https://gb-carbon-forecast.streamlit.app/
-**Live API:** https://carbon-forecast-api.delightfulfield-1ac7d123.uksouth.azurecontainerapps.io/docs
+- **Live dashboard:** https://gb-carbon-forecast.streamlit.app/
+- **Live API docs:** https://carbon-forecast-api.delightfulfield-1ac7d123.uksouth.azurecontainerapps.io/docs
 
 [![Dashboard: today's forecast with the recommended greenest window](docs/images/dashboard-forecast.png)](https://gb-carbon-forecast.streamlit.app/)
 
