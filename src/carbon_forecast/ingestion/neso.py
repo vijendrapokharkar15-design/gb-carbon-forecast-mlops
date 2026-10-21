@@ -105,3 +105,15 @@ def parse_forecast_rows(rows: list[dict]) -> pd.DataFrame:
     df["period_end"] = pd.to_datetime(df["period_end"], utc=True)
     df["forecast"] = pd.to_numeric(df["forecast"], errors="coerce").astype("float64")
     return df.sort_values("period_start").reset_index(drop=True)
+
+def snapshot_skip_reason(existing_names: list[str], now: datetime, issue_hour_utc: int = 12) -> str | None:
+    """Why a new day-ahead snapshot should NOT be taken now, or None if it should.
+
+    existing_names: snapshot file names already saved for today, e.g. 'fw24h_20261021T1138Z.json'
+    """
+    on_time = [n for n in existing_names if int(n.split("T")[1][:2]) < issue_hour_utc]
+    if on_time:
+        return f"on-time snapshot already exists ({sorted(on_time)[0]})"
+    if now.hour >= issue_hour_utc:
+        return f"past the {issue_hour_utc:02d}:00 UTC issue time; a snapshot now would not be a fair day-ahead benchmark"
+    return None
