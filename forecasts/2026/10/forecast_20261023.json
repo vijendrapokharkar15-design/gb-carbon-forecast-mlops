@@ -1,0 +1,260 @@
+{
+  "fetched_at_utc": "2026-10-23T12:11:25Z",
+  "issue_time_utc": "2026-10-23T12:00Z",
+  "minutes_after_issue": 11.4,
+  "late": false,
+  "api_url": "https://carbon-forecast-api.delightfulfield-1ac7d123.uksouth.azurecontainerapps.io",
+  "response": {
+    "issue_time": "2026-10-23T12:00:00+00:00",
+    "model_version": "v20261018T123254Z",
+    "unit": "gCO2/kWh",
+    "greenest_window": {
+      "start": "2026-10-23T22:00:00+00:00",
+      "end": "2026-10-24T02:00:00+00:00",
+      "hours": 4.0,
+      "mean_intensity": 57.7
+    },
+    "forecast": [
+      {
+        "period_start": "2026-10-23T12:00:00+00:00",
+        "period_end": "2026-10-23T12:30:00+00:00",
+        "intensity": 84.3
+      },
+      {
+        "period_start": "2026-10-23T12:30:00+00:00",
+        "period_end": "2026-10-23T13:00:00+00:00",
+        "intensity": 85.7
+      },
+      {
+        "period_start": "2026-10-23T13:00:00+00:00",
+        "period_end": "2026-10-23T13:30:00+00:00",
+        "intensity": 87.5
+      },
+      {
+        "period_start": "2026-10-23T13:30:00+00:00",
+        "period_end": "2026-10-23T14:00:00+00:00",
+        "intensity": 94.8
+      },
+      {
+        "period_start": "2026-10-23T14:00:00+00:00",
+        "period_end": "2026-10-23T14:30:00+00:00",
+        "intensity": 101.6
+      },
+      {
+        "period_start": "2026-10-23T14:30:00+00:00",
+        "period_end": "2026-10-23T15:00:00+00:00",
+        "intensity": 114.5
+      },
+      {
+        "period_start": "2026-10-23T15:00:00+00:00",
+        "period_end": "2026-10-23T15:30:00+00:00",
+        "intensity": 135.5
+      },
+      {
+        "period_start": "2026-10-23T15:30:00+00:00",
+        "period_end": "2026-10-23T16:00:00+00:00",
+        "intensity": 129.3
+      },
+      {
+        "period_start": "2026-10-23T16:00:00+00:00",
+        "period_end": "2026-10-23T16:30:00+00:00",
+        "intensity": 134.5
+      },
+      {
+        "period_start": "2026-10-23T16:30:00+00:00",
+        "period_end": "2026-10-23T17:00:00+00:00",
+        "intensity": 135.6
+      },
+      {
+        "period_start": "2026-10-23T17:00:00+00:00",
+        "period_end": "2026-10-23T17:30:00+00:00",
+        "intensity": 130.8
+      },
+      {
+        "period_start": "2026-10-23T17:30:00+00:00",
+        "period_end": "2026-10-23T18:00:00+00:00",
+        "intensity": 128.2
+      },
+      {
+        "period_start": "2026-10-23T18:00:00+00:00",
+        "period_end": "2026-10-23T18:30:00+00:00",
+        "intensity": 118.2
+      },
+      {
+        "period_start": "2026-10-23T18:30:00+00:00",
+        "period_end": "2026-10-23T19:00:00+00:00",
+        "intensity": 100.9
+      },
+      {
+        "period_start": "2026-10-23T19:00:00+00:00",
+        "period_end": "2026-10-23T19:30:00+00:00",
+        "intensity": 83.9
+      },
+      {
+        "period_start": "2026-10-23T19:30:00+00:00",
+        "period_end": "2026-10-23T20:00:00+00:00",
+        "intensity": 74.4
+      },
+      {
+        "period_start": "2026-10-23T20:00:00+00:00",
+        "period_end": "2026-10-23T20:30:00+00:00",
+        "intensity": 64.8
+      },
+      {
+        "period_start": "2026-10-23T20:30:00+00:00",
+        "period_end": "2026-10-23T21:00:00+00:00",
+        "intensity": 60.8
+      },
+      {
+        "period_start": "2026-10-23T21:00:00+00:00",
+        "period_end": "2026-10-23T21:30:00+00:00",
+        "intensity": 61.3
+      },
+      {
+        "period_start": "2026-10-23T21:30:00+00:00",
+        "period_end": "2026-10-23T22:00:00+00:00",
+        "intensity": 58.1
+      },
+      {
+        "period_start": "2026-10-23T22:00:00+00:00",
+        "period_end": "2026-10-23T22:30:00+00:00",
+        "intensity": 57.5
+      },
+      {
+        "period_start": "2026-10-23T22:30:00+00:00",
+        "period_end": "2026-10-23T23:00:00+00:00",
+        "intensity": 59.5
+      },
+      {
+        "period_start": "2026-10-23T23:00:00+00:00",
+        "period_end": "2026-10-23T23:30:00+00:00",
+        "intensity": 58.9
+      },
+      {
+        "period_start": "2026-10-23T23:30:00+00:00",
+        "period_end": "2026-10-24T00:00:00+00:00",
+        "intensity": 58.3
+      },
+      {
+        "period_start": "2026-10-24T00:00:00+00:00",
+        "period_end": "2026-10-24T00:30:00+00:00",
+        "intensity": 58.2
+      },
+      {
+        "period_start": "2026-10-24T00:30:00+00:00",
+        "period_end": "2026-10-24T01:00:00+00:00",
+        "intensity": 56.9
+      },
+      {
+        "period_start": "2026-10-24T01:00:00+00:00",
+        "period_end": "2026-10-24T01:30:00+00:00",
+        "intensity": 55.1
+      },
+      {
+        "period_start": "2026-10-24T01:30:00+00:00",
+        "period_end": "2026-10-24T02:00:00+00:00",
+        "intensity": 57.5
+      },
+      {
+        "period_start": "2026-10-24T02:00:00+00:00",
+        "period_end": "2026-10-24T02:30:00+00:00",
+        "intensity": 58.4
+      },
+      {
+        "period_start": "2026-10-24T02:30:00+00:00",
+        "period_end": "2026-10-24T03:00:00+00:00",
+        "intensity": 61.4
+      },
+      {
+        "period_start": "2026-10-24T03:00:00+00:00",
+        "period_end": "2026-10-24T03:30:00+00:00",
+        "intensity": 62.1
+      },
+      {
+        "period_start": "2026-10-24T03:30:00+00:00",
+        "period_end": "2026-10-24T04:00:00+00:00",
+        "intensity": 63.1
+      },
+      {
+        "period_start": "2026-10-24T04:00:00+00:00",
+        "period_end": "2026-10-24T04:30:00+00:00",
+        "intensity": 67.4
+      },
+      {
+        "period_start": "2026-10-24T04:30:00+00:00",
+        "period_end": "2026-10-24T05:00:00+00:00",
+        "intensity": 75.5
+      },
+      {
+        "period_start": "2026-10-24T05:00:00+00:00",
+        "period_end": "2026-10-24T05:30:00+00:00",
+        "intensity": 83.7
+      },
+      {
+        "period_start": "2026-10-24T05:30:00+00:00",
+        "period_end": "2026-10-24T06:00:00+00:00",
+        "intensity": 85.7
+      },
+      {
+        "period_start": "2026-10-24T06:00:00+00:00",
+        "period_end": "2026-10-24T06:30:00+00:00",
+        "intensity": 87.3
+      },
+      {
+        "period_start": "2026-10-24T06:30:00+00:00",
+        "period_end": "2026-10-24T07:00:00+00:00",
+        "intensity": 83.6
+      },
+      {
+        "period_start": "2026-10-24T07:00:00+00:00",
+        "period_end": "2026-10-24T07:30:00+00:00",
+        "intensity": 84.4
+      },
+      {
+        "period_start": "2026-10-24T07:30:00+00:00",
+        "period_end": "2026-10-24T08:00:00+00:00",
+        "intensity": 80.2
+      },
+      {
+        "period_start": "2026-10-24T08:00:00+00:00",
+        "period_end": "2026-10-24T08:30:00+00:00",
+        "intensity": 73.0
+      },
+      {
+        "period_start": "2026-10-24T08:30:00+00:00",
+        "period_end": "2026-10-24T09:00:00+00:00",
+        "intensity": 72.6
+      },
+      {
+        "period_start": "2026-10-24T09:00:00+00:00",
+        "period_end": "2026-10-24T09:30:00+00:00",
+        "intensity": 67.5
+      },
+      {
+        "period_start": "2026-10-24T09:30:00+00:00",
+        "period_end": "2026-10-24T10:00:00+00:00",
+        "intensity": 67.1
+      },
+      {
+        "period_start": "2026-10-24T10:00:00+00:00",
+        "period_end": "2026-10-24T10:30:00+00:00",
+        "intensity": 60.2
+      },
+      {
+        "period_start": "2026-10-24T10:30:00+00:00",
+        "period_end": "2026-10-24T11:00:00+00:00",
+        "intensity": 56.9
+      },
+      {
+        "period_start": "2026-10-24T11:00:00+00:00",
+        "period_end": "2026-10-24T11:30:00+00:00",
+        "intensity": 58.4
+      },
+      {
+        "period_start": "2026-10-24T11:30:00+00:00",
+        "period_end": "2026-10-24T12:00:00+00:00",
+        "intensity": 58.0
+      }
+    ]
+  }
+}
